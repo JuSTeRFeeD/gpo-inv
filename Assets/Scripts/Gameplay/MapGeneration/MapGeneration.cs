@@ -104,7 +104,7 @@ public class MapGeneration : MonoBehaviour
     public GameObject showParams;
     public TextMeshProUGUI seedTxt;
     public TextMeshProUGUI mapSizeTxt;
-    public TextMeshProUGUI sitesCountTxt;
+    public map sitesCountTxt;
     public PerlinNoiseVisualizer visualizer;
     public CameraFollow cameraFollow;
     public void IncSeed()
@@ -314,8 +314,8 @@ public class MapGeneration : MonoBehaviour
     private void FillTilesInRadius()
     {
         var perlinPointsByBiom = new List<Vector3Int>[biomes.Count];
-        var offsetX = 0; //Random.Range(0, 10); // TODO: вернуть (only for demo)
-        var offsetY = 0; //Random.Range(0, 10);
+        var offsetX = Random.Range(0, 10);
+        var offsetY = Random.Range(0, 10);
         for (var i = 0; i < biomes.Count; i++)
         {
             perlinPointsByBiom[i] = (CalcNoise(biomes[i].min, biomes[i].max, offsetX, offsetY, biomesPerlinScaler));
