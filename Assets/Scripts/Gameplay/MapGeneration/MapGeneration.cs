@@ -104,7 +104,7 @@ public class MapGeneration : MonoBehaviour
     public GameObject showParams;
     public TextMeshProUGUI seedTxt;
     public TextMeshProUGUI mapSizeTxt;
-    public map sitesCountTxt;
+    public TextMeshProUGUI sitesCountTxt;
     public PerlinNoiseVisualizer visualizer;
     public CameraFollow cameraFollow;
     public void IncSeed()
