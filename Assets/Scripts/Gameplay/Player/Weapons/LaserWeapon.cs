@@ -15,6 +15,12 @@ public class LaserWeapon : WeaponBase
     
     private void Update()
     {
+        HandleVisual();
+        if (!PlayerMovement.canDoAny)
+        {
+            this.firePoint.gameObject.SetActive(false);
+            return;
+        }
         this._isShooting = Input.GetMouseButton(0);
         this.firePoint.gameObject.SetActive(this._isShooting);
         if (!this._isShooting)
@@ -26,7 +32,6 @@ public class LaserWeapon : WeaponBase
         {
             if (currentCooldown > 0) currentCooldown -= Time.deltaTime;
         }
-        HandleVisual();
         Shoot();
     }
 
@@ -53,8 +58,8 @@ public class LaserWeapon : WeaponBase
         var mousePos = (Vector2) cam.ScreenToWorldPoint(Input.mousePosition);
         var endPos = (Vector2) startFirePosition + Vector2.ClampMagnitude((mousePos - (Vector2)startFirePosition), radius);
 
-        Vector2 direction = endPos - (Vector2) startFirePosition;
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)startFirePosition, direction.normalized, direction.magnitude, hitLayer);
+        var direction = endPos - (Vector2) startFirePosition;
+        var hit = Physics2D.Raycast((Vector2)startFirePosition, direction.normalized, direction.magnitude, hitLayer);
         if (hit)
         {
             this.endPoint.position = hit.point;

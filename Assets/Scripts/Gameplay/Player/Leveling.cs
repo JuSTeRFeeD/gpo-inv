@@ -15,14 +15,24 @@ public class Leveling : MonoBehaviour
     public int LevelExp { get; private set; } = 4;
     public int CurrentExp { get; private set; } = 0;
 
+    private bool maxLvl = false;
+
     public void AddExp(int value)
     {
+        if (maxLvl) return;
         CurrentExp += value;
         if (CurrentExp >= LevelExp)
         {
             Level++;
-            CurrentExp = LevelExp - CurrentExp > 0 ? LevelExp - CurrentExp : 0;
-            LevelExp = Level * 5;
+            if (Level >= 100)
+            {
+                maxLvl = true;
+                lvlProgressTxt.text = "";
+                progressImg.fillAmount = 1;
+                return;
+            }
+            CurrentExp = CurrentExp - LevelExp > 0 ? CurrentExp - LevelExp : 0;
+            LevelExp = Level * 4;
             lvlTxt.text = "Level: " + Level;
         }
         UpdateInfo();

@@ -10,7 +10,6 @@ public class UIItem : MonoBehaviour, IPointerClickHandler , IDragHandler ,
 {
     public InvetoryItemUI cell;
 
-
     public void OnPointerClick(PointerEventData eventData)
     {
     }
@@ -22,7 +21,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler , IDragHandler ,
     
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = Input.mousePosition;
+        transform.position = Input.mousePosition + new Vector3(64, 64, 0);
     }
     
     public void OnEndDrag(PointerEventData eventData)
@@ -42,4 +41,3 @@ public class UIItem : MonoBehaviour, IPointerClickHandler , IDragHandler ,
         cell.inventoryUI.Tooltip.Clear();
     }
 }
-

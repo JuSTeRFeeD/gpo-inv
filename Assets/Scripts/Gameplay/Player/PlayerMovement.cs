@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static bool canDoAny = true; 
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;

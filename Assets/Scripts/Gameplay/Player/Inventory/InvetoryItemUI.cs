@@ -13,17 +13,26 @@ public class InvetoryItemUI : MonoBehaviour, IDropHandler
     public bool HasItem => _item != null;
 
     [SerializeField] private Image itemImage;
+    [SerializeField] private Image topImage;
     public UIItem uiItem { get; private set; }
     public InventoryUI inventoryUI;
 
     private void Start()
     {
         uiItem = itemImage.GetComponent<UIItem>();
-        uiItem.cell = this;
+        // uiItem.cell = this;
     }
     public void SetItem(ResourceData item)
     {
         _item = item;
+        if (item is Item temp)
+        {
+            itemImage.sprite = temp.bottomSprite;
+            itemImage.enabled = true;
+            topImage.sprite = temp.topSprite;
+            topImage.enabled = true;
+            return;
+        }
         itemImage.enabled = true;
         itemImage.sprite = item.sprite;
     }
@@ -31,13 +40,12 @@ public class InvetoryItemUI : MonoBehaviour, IDropHandler
     public void ClearItem()
     {
         _item = null;
+        topImage.enabled = false;
         itemImage.enabled = false;
-        itemImage.sprite = null;
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("Dropped to" + id);
         inventoryUI.HandleDropToCell(this);
     }
 }

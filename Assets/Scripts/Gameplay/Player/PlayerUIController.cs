@@ -5,10 +5,14 @@ using UnityEngine;
 
 public class PlayerUIController : MonoBehaviour
 {
-    [SerializeField] private GameObject inventory; 
-    
+    [SerializeField] private GameObject inventory;
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab)) inventory.SetActive(!inventory.activeSelf);
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            inventory.SetActive(!inventory.activeSelf);
+            PlayerMovement.canDoAny = !inventory.activeSelf;
+        }
     }
 }

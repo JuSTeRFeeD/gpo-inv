@@ -6,12 +6,14 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
+    [SerializeField] private ItemGenerator itemsGenerator;
     [SerializeField] private InventoryTooltip _tooltip;
     public InventoryTooltip Tooltip => _tooltip; 
     [SerializeField] private Inventory playerInventory;
     [SerializeField] private List<InvetoryItemUI> cells = new List<InvetoryItemUI>();
 
     private InvetoryItemUI dragCell;
+    private Leveling _leveling;
     
     private void Awake()
     {
@@ -21,6 +23,12 @@ public class InventoryUI : MonoBehaviour
             cell.inventoryUI = this;
             cell.id = id++;
         }
+        _leveling = playerInventory.GetComponent<Leveling>();
+    }
+
+    private void Start()
+    {
+        gameObject.SetActive(false);
     }
 
     public void SetDragCell(InvetoryItemUI cell)
@@ -33,9 +41,9 @@ public class InventoryUI : MonoBehaviour
         if (!dragCell || dragCell.id == cell.id) return;
         if (cell.HasItem)
         {
-            // cell.ClearItem();
-            // dragCell.ClearItem();
-            // TODO: generate random item   
+            dragCell.ClearItem();
+            var item = itemsGenerator.GenerateNewItem(_leveling.Level);
+            cell.SetItem(item);
             return;
         }
         cell.SetItem(dragCell.Item);
